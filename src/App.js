@@ -17,7 +17,6 @@ function App() {
                     if (res.status !== 200)
                         setHoliday(`Error finding data. Here's the API call: https://holidayapi.com/v1/holidays?pretty&key=${API_KEY}&country=${country}&year=2019`);
                     else {
-                        console.log(`https://holidayapi.com/v1/holidays?pretty&key=${API_KEY}&country=${country}&year=2019`);
                         let todaysHoliday = res["holidays"].filter(holiday => {
                             return holiday.date === date;
                         });

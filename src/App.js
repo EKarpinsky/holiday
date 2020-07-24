@@ -10,19 +10,23 @@ function App() {
     // let date = (new Date()).toISOString().split('T')[0]; (today's date)
 
     async function fetchHolidayData() {
-        await fetch(`https://holidayapi.com/v1/holidays?pretty&key=${API_KEY}&country=${country}&year=2019`)
-            .then(res => res.json())
-            .then(res => {
-                if (res.status !== 200)
-                    setHoliday(`https://holidayapi.com/v1/holidays?pretty&key=${API_KEY}&country=${country}&year=2019`);
-                else {
-                    let todaysHoliday = res["holidays"].filter(holiday => {
-                        console.log(holiday.date, date);
-                        return holiday.date === date;
-                    });
-                    setHoliday(todaysHoliday[0].name);
-                }
-            });
+        try {
+            await fetch(`https://holidayapi.com/v1/holidays?pretty&key=${API_KEY}&country=${country}&year=2019`)
+                .then(res => res.json())
+                .then(res => {
+                    if (res.status !== 200)
+                        setHoliday(`Error finding data. Here's the API call: https://holidayapi.com/v1/holidays?pretty&key=${API_KEY}&country=${country}&year=2019`);
+                    else {
+                        console.log(`https://holidayapi.com/v1/holidays?pretty&key=${API_KEY}&country=${country}&year=2019`);
+                        let todaysHoliday = res["holidays"].filter(holiday => {
+                            return holiday.date === date;
+                        });
+                        setHoliday(todaysHoliday[0].name);
+                    }
+                });
+        } catch (e) {
+            setHoliday(`Error finding data. Here's the API call: https://holidayapi.com/v1/holidays?pretty&key=${API_KEY}&country=${country}&year=2019`);
+        }
     }
 
     return (

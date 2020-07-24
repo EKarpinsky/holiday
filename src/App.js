@@ -25,7 +25,7 @@ function App() {
                     }
                 });
         } catch (e) {
-            setHoliday(`Error finding data. Here's the API call: https://holidayapi.com/v1/holidays?pretty&key=${API_KEY}&country=${country}&year=2019`);
+            setHoliday(`Error finding data. Here's the API call: https://holidayapi.com/v1/holidays?pretty&key=${API_KEY}&country=${country}&year=2019. Here's the error: ${e}`);
         }
     }
 
